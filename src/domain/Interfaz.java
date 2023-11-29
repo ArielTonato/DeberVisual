@@ -21,7 +21,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author Asus
  */
 public class Interfaz extends javax.swing.JFrame {
-
+    Controles control = new Controles();
     EstudianteCrud estudianteCrud = new EstudianteCrud();
     DefaultTableModel modelo;
 
@@ -48,12 +48,32 @@ public class Interfaz extends javax.swing.JFrame {
     }
 
     public void guardar() {
+        if (control.controlVacios(jtxtCedula.getText(), jtxtNombre.getText(), jtxtApellido.getText(), jtxtDireccion.getText(), jtxtTelefono.getText())) {
+           
+            if (control.validarLetras(jtxtNombre.getText(), jtxtApellido.getText(), jtxtDireccion.getText())) {
+                
+                if (control.validarNumeros(jtxtCedula.getText(),jtxtTelefono.getText())) {
+                    
         Estudiante estudiante = new Estudiante(jtxtCedula.getText(), jtxtNombre.getText(), jtxtApellido.getText(),
                 jtxtDireccion.getText(), jtxtTelefono.getText());
         if (estudianteCrud.ingresarEstudiante(estudiante) > 0) {
             JOptionPane.showMessageDialog(rootPane, "Se ha guardado el estudiante");
             limpiarCampos();
             cargarTabla();
+        }
+        
+          }else{
+                    JOptionPane.showMessageDialog(null, "INGRESE 10 NUMEROS EN CEDULA Y TELEFONO");
+                }
+        
+         }else{
+               JOptionPane.showMessageDialog(null, "INGRESE SOLO LETRAS EN NOMBRE,APELLIDO,DIRECCION");
+               limpiarCampos();
+            }
+        
+        }else{
+            JOptionPane.showMessageDialog(null, "INGRESE TODOS LOS CAMPOS");
+            limpiarCampos();
         }
     }
 
