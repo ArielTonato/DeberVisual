@@ -5,17 +5,17 @@
 package domain;
 
 import java.awt.Color;
-import java.sql.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Asus
  */
-public class Interfaz extends javax.swing.JFrame {
+public final class Interfaz extends javax.swing.JFrame {
 
     Controles control = new Controles();
     EstudianteCrud estudianteCrud = new EstudianteCrud();
@@ -27,19 +27,15 @@ public class Interfaz extends javax.swing.JFrame {
     public Interfaz() {
         initComponents();
         cargarTabla();
-        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (jTable1.getSelectedRow() != -1) {
-                    int fila = jTable1.getSelectedRow();
-                    jtxtCedula.setText(jTable1.getValueAt(fila, 0).toString());
-                    jtxtNombre.setText(jTable1.getValueAt(fila, 1).toString());
-                    jtxtApellido.setText(jTable1.getValueAt(fila, 2).toString());
-                    jtxtDireccion.setText(jTable1.getValueAt(fila, 3).toString());
-                    jtxtTelefono.setText(jTable1.getValueAt(fila, 4).toString());
-                }
+        jTable1.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
+            if (jTable1.getSelectedRow() != -1) {
+                int fila = jTable1.getSelectedRow();
+                jtxtCedula.setText(jTable1.getValueAt(fila, 0).toString());
+                jtxtNombre.setText(jTable1.getValueAt(fila, 1).toString());
+                jtxtApellido.setText(jTable1.getValueAt(fila, 2).toString());
+                jtxtDireccion.setText(jTable1.getValueAt(fila, 3).toString());
+                jtxtTelefono.setText(jTable1.getValueAt(fila, 4).toString());
             }
-
         });
     }
 
@@ -97,6 +93,10 @@ public class Interfaz extends javax.swing.JFrame {
 
     public void eliminar() {
         // TODO add your handling code here:
+        if(jtxtCedula.getText().isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Ingrese una cedula");
+            return;
+        }
         int opcion = JOptionPane.showConfirmDialog(rootPane, "Esta seguro de eliminar?",
                 "Eliminar estudiante", JOptionPane.YES_NO_OPTION);
         if (opcion == JOptionPane.YES_OPTION) {
@@ -185,6 +185,29 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
 
+        jtxtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtNombreFocusLost(evt);
+            }
+        });
+
+        jtxtApellido.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtApellidoFocusLost(evt);
+            }
+        });
+
+        jtxtDireccion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtDireccionFocusLost(evt);
+            }
+        });
+
+        jtxtTelefono.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtTelefonoFocusLost(evt);
+            }
+        });
         jtxtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jtxtTelefonoKeyPressed(evt);
@@ -411,14 +434,47 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_jtxtTelefonoKeyTyped
 
     private void jtxtCedulaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtCedulaFocusLost
-        // TODO add your handling code here:
-        if (jtxtCedula.getText().isEmpty()) {
-            jtxtCedula.setBackground(Color.red);
-        } else {
-            jtxtCedula.setBackground(Color.WHITE);
 
-        }
+        focus(evt, jtxtCedula);
     }//GEN-LAST:event_jtxtCedulaFocusLost
+
+    private void jtxtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNombreFocusLost
+        // TODO add your handling code here:
+        focus(evt, jtxtNombre);
+    }//GEN-LAST:event_jtxtNombreFocusLost
+
+    private void jtxtApellidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtApellidoFocusLost
+        // TODO add your handling code here:
+        focus(evt, jtxtApellido);
+    }//GEN-LAST:event_jtxtApellidoFocusLost
+
+    private void jtxtDireccionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtDireccionFocusLost
+        // TODO add your handling code here:
+        focus(evt, jtxtDireccion);
+    }//GEN-LAST:event_jtxtDireccionFocusLost
+
+    private void jtxtTelefonoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtTelefonoFocusLost
+        // TODO add your handling code here:
+        focus(evt, jtxtTelefono);
+    }//GEN-LAST:event_jtxtTelefonoFocusLost
+             
+    
+    private void focus(java.awt.event.FocusEvent evt, javax.swing.JTextField texto) {
+        evt.getOppositeComponent().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if(texto.getText().isEmpty()){
+                texto.setBackground(Color.red);                    
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                texto.setBackground(Color.white);
+            }
+
+        });
+    }
 
     /**
      * @param args the command line arguments
@@ -448,10 +504,8 @@ public class Interfaz extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Interfaz().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Interfaz().setVisible(true);
         });
     }
 

@@ -134,13 +134,23 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jtxtNombre">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtxtNombreFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jtxtApellido">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtxtApellidoFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jtxtDireccion">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtxtDireccionFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jtxtTelefono">
           <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtxtTelefonoFocusLost"/>
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtTelefonoKeyPressed"/>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtTelefonoKeyTyped"/>
           </Events>
