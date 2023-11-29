@@ -37,7 +37,28 @@ public final class Interfaz extends javax.swing.JFrame {
                 jtxtTelefono.setText(jTable1.getValueAt(fila, 4).toString());
             }
         });
+        configurarCampoDeTexto(jtxtCedula);
+        configurarCampoDeTexto(jtxtNombre);
+        configurarCampoDeTexto(jtxtApellido);
+        configurarCampoDeTexto(jtxtDireccion);
+        configurarCampoDeTexto(jtxtTelefono);
+
     }
+    private void configurarCampoDeTexto(javax.swing.JTextField campo) {
+    campo.addFocusListener(new FocusListener() {
+        @Override
+        public void focusGained(FocusEvent e) {
+            campo.setBackground(Color.white);
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            if (campo.getText().isEmpty()) {
+                campo.setBackground(Color.red);
+            }
+        }
+    });
+}
 
     public boolean validaciones() {
         if (control.controlVacios(jtxtCedula.getText(), jtxtNombre.getText(), jtxtApellido.getText(),
@@ -93,7 +114,7 @@ public final class Interfaz extends javax.swing.JFrame {
 
     public void eliminar() {
         // TODO add your handling code here:
-        if(jtxtCedula.getText().isEmpty()){
+        if (jtxtCedula.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Ingrese una cedula");
             return;
         }
@@ -266,7 +287,7 @@ public final class Interfaz extends javax.swing.JFrame {
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, 240));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 240));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -335,7 +356,7 @@ public final class Interfaz extends javax.swing.JFrame {
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, 180, 240));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, 180, 240));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -369,7 +390,7 @@ public final class Interfaz extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -434,47 +455,24 @@ public final class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_jtxtTelefonoKeyTyped
 
     private void jtxtCedulaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtCedulaFocusLost
-
-        focus(evt, jtxtCedula);
     }//GEN-LAST:event_jtxtCedulaFocusLost
 
     private void jtxtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNombreFocusLost
         // TODO add your handling code here:
-        focus(evt, jtxtNombre);
     }//GEN-LAST:event_jtxtNombreFocusLost
 
     private void jtxtApellidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtApellidoFocusLost
-        // TODO add your handling code here:
-        focus(evt, jtxtApellido);
+
     }//GEN-LAST:event_jtxtApellidoFocusLost
 
     private void jtxtDireccionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtDireccionFocusLost
         // TODO add your handling code here:
-        focus(evt, jtxtDireccion);
     }//GEN-LAST:event_jtxtDireccionFocusLost
 
     private void jtxtTelefonoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtTelefonoFocusLost
         // TODO add your handling code here:
-        focus(evt, jtxtTelefono);
+
     }//GEN-LAST:event_jtxtTelefonoFocusLost
-             
-    
-    private void focus(java.awt.event.FocusEvent evt, javax.swing.JTextField texto) {
-        evt.getOppositeComponent().addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if(texto.getText().isEmpty()){
-                texto.setBackground(Color.red);                    
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                texto.setBackground(Color.white);
-            }
-
-        });
-    }
 
     /**
      * @param args the command line arguments
