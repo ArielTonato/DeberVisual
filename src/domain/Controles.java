@@ -4,35 +4,66 @@
  */
 package domain;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  *
  * @author Gabo
  */
 public class Controles {
-    
-    public boolean controlVacios(String cedula, String nombre, String apellido, String direccion, String telefono){
-        //Verifica que los campos no esten vacios para las insercciones
-        if (cedula.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || direccion.isEmpty() || telefono.isEmpty()) {
-            return false;
-        }
-        return true;
-    }
-    
-    public boolean validarLetras(String nombre, String apellido, String direccion){
-    // Verificar que nombre, apellido y dirección contengan solo letras
-    if (!nombre.matches("[a-zA-Z]+") || !apellido.matches("[a-zA-Z]+") || !direccion.matches("[a-zA-Z]+")) {
-        return false; // Al menos uno de los campos nombre, apellido o dirección contiene caracteres no permitidos
-    }
-    return true;
-    }
-    
-     public boolean validarNumeros(String cedula, String telefono){
-    // Verificar que cédula y teléfono contengan solo números
-    if (!cedula.matches("[0-9]{10}") || !telefono.matches("[0-9]{10}")) {
-        return false; // Al menos uno de los campos cédula o teléfono contiene caracteres no permitidos
-    }
-    return true; // Todos los campos cumplen con los criterios de validación
-}
 
-    
+    public boolean validarCedula(String numeroCedula) {
+        int suma = 0;
+        if (numeroCedula.length() != 10 || Integer.parseInt(numeroCedula.substring(0, 2)) > 24 || Integer.parseInt(numeroCedula.substring(0, 2)) < 0 || Integer.parseInt(String.valueOf(numeroCedula.charAt(2))) > 6) {
+            return false;
+        } else {
+            int[] a = new int[numeroCedula.length() / 2];
+            int[] b = new int[(numeroCedula.length() / 2)];
+            int c = 0;
+            int d = 1;
+            for (int i = 0; i < numeroCedula.length() / 2; i++) {
+                a[i] = Integer.parseInt(String.valueOf(numeroCedula.charAt(c)));
+                c = c + 2;
+                if (i < (numeroCedula.length() / 2) - 1) {
+                    b[i] = Integer.parseInt(String.valueOf(numeroCedula.charAt(d)));
+                    d = d + 2;
+                }
+            }
+            for (int i = 0; i < a.length; i++) {
+                a[i] = a[i] * 2;
+                if (a[i] > 9) {
+                    a[i] = a[i] - 9;
+                }
+                suma = suma + a[i] + b[i];
+            }
+            int aux = suma / 10;
+            int dec = (aux + 1) * 10;
+            if ((dec - suma) == Integer.parseInt(String.valueOf(numeroCedula.charAt(numeroCedula.length() - 1)))) {
+                return true;
+            } else if (suma % 10 == 0 && numeroCedula.charAt(numeroCedula.length() - 1) == '0') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    public boolean controlVacios(String cedula, String nombre, String apellido, String direccion, String telefono) {
+        //Verifica que los campos no esten vacios para las insercciones
+
+        return (cedula.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || direccion.isEmpty() || telefono.isEmpty());
+    }
+
+    public boolean validarTelefono(String telefono) {
+        String regex = "^09\\d{8}$"; // ^09 indica que debe empezar con "09", \d{8} indica exactamente 8 dígitos adicionales
+
+        // Compilar la expresión regular en un patrón
+        Pattern pattern = Pattern.compile(regex);
+
+        // Verificar si el teléfono coincide con el patrón
+        Matcher matcher = pattern.matcher(telefono);
+        return matcher.matches();
+    }
+
 }

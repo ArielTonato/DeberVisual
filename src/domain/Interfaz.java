@@ -4,23 +4,19 @@
  */
 package domain;
 
+import java.awt.Color;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
  * @author Asus
  */
 public class Interfaz extends javax.swing.JFrame {
+
     Controles control = new Controles();
     EstudianteCrud estudianteCrud = new EstudianteCrud();
     DefaultTableModel modelo;
@@ -47,13 +43,31 @@ public class Interfaz extends javax.swing.JFrame {
         });
     }
 
+    public boolean validaciones() {
+        if (control.controlVacios(jtxtCedula.getText(), jtxtNombre.getText(), jtxtApellido.getText(),
+                jtxtDireccion.getText(), jtxtTelefono.getText())) {
+            JOptionPane.showMessageDialog(rootPane, "Llene los campos");
+            return false;
+        }
+        if (!control.validarCedula(jtxtCedula.getText())) {
+            JOptionPane.showMessageDialog(rootPane, "Ingrese una cedula valida");
+            return false;
+        }
+
+        if (!control.validarTelefono(jtxtTelefono.getText())) {
+            JOptionPane.showMessageDialog(null, "Ingrese un numero de telefono valido");
+            return false;
+        }
+
+        return true;
+    }
+
     public void guardar() {
-        if (control.controlVacios(jtxtCedula.getText(), jtxtNombre.getText(), jtxtApellido.getText(), jtxtDireccion.getText(), jtxtTelefono.getText())) {
-           
-            if (control.validarLetras(jtxtNombre.getText(), jtxtApellido.getText(), jtxtDireccion.getText())) {
-                
-                if (control.validarNumeros(jtxtCedula.getText(),jtxtTelefono.getText())) {
-                    
+
+        if (!validaciones()) {
+            return;
+        }
+
         Estudiante estudiante = new Estudiante(jtxtCedula.getText(), jtxtNombre.getText(), jtxtApellido.getText(),
                 jtxtDireccion.getText(), jtxtTelefono.getText());
         if (estudianteCrud.ingresarEstudiante(estudiante) > 0) {
@@ -61,24 +75,13 @@ public class Interfaz extends javax.swing.JFrame {
             limpiarCampos();
             cargarTabla();
         }
-        
-          }else{
-                    JOptionPane.showMessageDialog(null, "INGRESE 10 NUMEROS EN CEDULA Y TELEFONO");
-                }
-        
-         }else{
-               JOptionPane.showMessageDialog(null, "INGRESE SOLO LETRAS EN NOMBRE,APELLIDO,DIRECCION");
-               limpiarCampos();
-            }
-        
-        }else{
-            JOptionPane.showMessageDialog(null, "INGRESE TODOS LOS CAMPOS");
-            limpiarCampos();
-        }
     }
 
     public void editar() {
         // TODO add your handling code here:
+        if (!validaciones()) {
+            return;
+        }
         int opcion = JOptionPane.showConfirmDialog(rootPane, "Esta seguro de actualizar?",
                 "Actualizar estudiante", JOptionPane.YES_NO_OPTION);
         if (opcion == JOptionPane.YES_OPTION) {
@@ -106,8 +109,6 @@ public class Interfaz extends javax.swing.JFrame {
             }
         }
     }
-
-
 
     public void limpiarCampos() {
         jtxtCedula.setText("");
@@ -168,6 +169,31 @@ public class Interfaz extends javax.swing.JFrame {
 
         jLabel5.setText("Telefono");
 
+        jtxtCedula.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtCedulaFocusLost(evt);
+            }
+        });
+        jtxtCedula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtCedulaActionPerformed(evt);
+            }
+        });
+        jtxtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtCedulaKeyTyped(evt);
+            }
+        });
+
+        jtxtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtTelefonoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtTelefonoKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -214,10 +240,10 @@ public class Interfaz extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jtxtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, 240));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -261,7 +287,7 @@ public class Interfaz extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(71, Short.MAX_VALUE)
+                .addContainerGap(51, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jbtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jbtnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -286,7 +312,7 @@ public class Interfaz extends javax.swing.JFrame {
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, 200, 240));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, 180, 240));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -320,7 +346,7 @@ public class Interfaz extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, -1, -1));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -347,19 +373,52 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnCancelarActionPerformed
 
     private void jbtnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnReportesActionPerformed
-        try {
-            // TODO add your handling code here:
-            Conexion conexion = new Conexion();
-            Connection connection = conexion.conectar();
-            JasperReport reporte = JasperCompileManager.compileReport("C:\\Users\\Asus\\Desktop\\Universidad\\Quinto y visual\\Computacion Visual\\Pruebas\\DeberVisual\\src\\Reportes\\"
-                    + "ReporteEstudiantes.jrxml");
-            JasperPrint imprimir = JasperFillManager.fillReport(reporte,null,connection);
-            JasperViewer.viewReport(imprimir);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, ex);
-        }
-        
+//        try {
+//            // TODO add your handling code here:
+//            Conexion conexion = new Conexion();
+//            Connection connection = conexion.conectar();
+//            JasperReport reporte = JasperCompileManager.compileReport("C:\\Users\\Asus\\Desktop\\Universidad\\Quinto y visual\\Computacion Visual\\Pruebas\\DeberVisual\\src\\Reportes\\"
+//                    + "ReporteEstudiantes.jrxml");
+//            JasperPrint imprimir = JasperFillManager.fillReport(reporte,null,connection);
+//            JasperViewer.viewReport(imprimir);
+//        } catch (Exception ex) {
+//            JOptionPane.showMessageDialog(rootPane, ex);
+//        }
+
     }//GEN-LAST:event_jbtnReportesActionPerformed
+
+    private void jtxtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtCedulaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtCedulaActionPerformed
+
+    private void jtxtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtCedulaKeyTyped
+        // TODO add your handling code here:
+
+        if ((evt.getKeyChar() < '0' || evt.getKeyChar() > '9') || jtxtCedula.getText().length() > 9) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtxtCedulaKeyTyped
+
+    private void jtxtTelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtTelefonoKeyPressed
+
+    }//GEN-LAST:event_jtxtTelefonoKeyPressed
+
+    private void jtxtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtTelefonoKeyTyped
+        // TODO add your handling code here:
+        if ((evt.getKeyChar() < '0' || evt.getKeyChar() > '9') || jtxtTelefono.getText().length() > 9) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtxtTelefonoKeyTyped
+
+    private void jtxtCedulaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtCedulaFocusLost
+        // TODO add your handling code here:
+        if (jtxtCedula.getText().isEmpty()) {
+            jtxtCedula.setBackground(Color.red);
+        } else {
+            jtxtCedula.setBackground(Color.WHITE);
+
+        }
+    }//GEN-LAST:event_jtxtCedulaFocusLost
 
     /**
      * @param args the command line arguments

@@ -15,14 +15,14 @@ import javax.swing.JOptionPane;
  */
 public class EstudianteCrud {
 
-    private Conexion conexion = new Conexion();
-    private Connection conectar = conexion.conectar();
-    private String SQL_SELECT = "SELECT * FROM ESTUDIANTES";
-    private String SQL_INSERT = "INSERT INTO estudiantes (est_cedula, est_nombre, est_apellido, est_direccion, est_telefono)"
+    private final Conexion conexion = new Conexion();
+    private final Connection conectar = conexion.conectar();
+    private final String SQL_SELECT = "SELECT * FROM ESTUDIANTES";
+    private final String SQL_INSERT = "INSERT INTO estudiantes (est_cedula, est_nombre, est_apellido, est_direccion, est_telefono)"
             + "VALUES (?,?,?,?,?)";
-    private String SQL_UPDATE = "UPDATE estudiantes SET est_nombre = ?, est_apellido = ?, est_direccion = ?, est_telefono = ? WHERE "
+    private final String SQL_UPDATE = "UPDATE estudiantes SET est_nombre = ?, est_apellido = ?, est_direccion = ?, est_telefono = ? WHERE "
             + "est_cedula = ?";
-    private String SQL_DELETE = "DELETE FROM estudiantes WHERE est_cedula = ?";
+    private final String SQL_DELETE = "DELETE FROM estudiantes WHERE est_cedula = ?";
 
     public int ingresarEstudiante(Estudiante estudiante) {
         int n = 0;
@@ -35,7 +35,11 @@ public class EstudianteCrud {
             statement.setString(5, estudiante.getTelefono());
             n = statement.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
+            if (ex instanceof SQLIntegrityConstraintViolationException) {
+                JOptionPane.showMessageDialog(null, "Ya existe el usuario");
+            } else {
+                JOptionPane.showMessageDialog(null, ex);
+            }
         }
         return n;
     }
@@ -72,7 +76,11 @@ public class EstudianteCrud {
             statement.setString(5, estudiante.getCedula());
             n = statement.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
+            if (ex instanceof SQLIntegrityConstraintViolationException) {
+                JOptionPane.showMessageDialog(null, "Ya existe el usuario");
+            } else {
+                JOptionPane.showMessageDialog(null, ex);
+            }
         }
         return n;
     }
