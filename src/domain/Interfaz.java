@@ -10,6 +10,12 @@ import java.awt.event.FocusListener;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
+import java.sql.*;
 
 /**
  *
@@ -417,17 +423,19 @@ public final class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnCancelarActionPerformed
 
     private void jbtnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnReportesActionPerformed
-//        try {
-//            // TODO add your handling code here:
-//            Conexion conexion = new Conexion();
-//            Connection connection = conexion.conectar();
-//            JasperReport reporte = JasperCompileManager.compileReport("C:\\Users\\Asus\\Desktop\\Universidad\\Quinto y visual\\Computacion Visual\\Pruebas\\DeberVisual\\src\\Reportes\\"
-//                    + "ReporteEstudiantes.jrxml");
-//            JasperPrint imprimir = JasperFillManager.fillReport(reporte,null,connection);
-//            JasperViewer.viewReport(imprimir);
-//        } catch (Exception ex) {
-//            JOptionPane.showMessageDialog(rootPane, ex);
-//        }
+        try {
+            // TODO add your handling code here:
+            Conexion conexion = new Conexion();
+            Connection connection = conexion.conectar();
+            JasperReport reporte = JasperCompileManager.compileReport("C:\\Users\\Asus\\Desktop"
+                    + "\\Universidad\\Quinto y visual\\"
+                    + "Computacion Visual\\Pruebas\\DeberVisual"
+                    + "\\src\\reportes\\reporteEstudiantes.jrxml");
+            JasperPrint imprimir = JasperFillManager.fillReport(reporte,null,connection);
+            JasperViewer.viewReport(imprimir,false);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex);
+        }
 
     }//GEN-LAST:event_jbtnReportesActionPerformed
 

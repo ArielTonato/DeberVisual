@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0260839b-654a-43c3-bfb7-f9a5bf3b6ad7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select * from estudiantes]]>
+	</queryString>
+	<field name="est_cedula" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="est_nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="est_apellido" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="est_direccion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="est_telefono" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="est_cedula_1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{est_cedula}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="87" splitType="Stretch">
+			<staticText>
+				<reportElement x="128" y="16" width="325" height="54" uuid="04f34f1a-769d-46fe-8f9b-daa0c1759413"/>
+				<textElement>
+					<font size="22"/>
+				</textElement>
+				<text><![CDATA[Universidad Tecnica de Ambato]]></text>
+			</staticText>
+			<image>
+				<reportElement x="469" y="0" width="86" height="87" uuid="48a54577-e166-459c-bd38-56022fc14fce"/>
+				<imageExpression><![CDATA["C:\\Users\\Asus\\Desktop\\Universidad\\Quinto y visual\\Computacion Visual\\Pruebas\\DeberVisual\\src\\reportes\\Escudo_de_la_Universidad_Técnica_de_Ambato.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="15" y="0" width="141" height="87" uuid="64818be2-1e44-4a12-bd17-a5f0b9b2d117"/>
+				<imageExpression><![CDATA["C:\\Users\\Asus\\Desktop\\Universidad\\Quinto y visual\\Computacion Visual\\Pruebas\\DeberVisual\\src\\reportes\\descarga.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="174" y="49" width="230" height="20" uuid="762291d0-91b3-4a1f-acbd-24251e10f1b1"/>
+				<text><![CDATA[Ingenieria en Sistemas, Electronica e Industrial]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="232" y="0" width="122" height="20" uuid="0d7707ae-c469-4a18-bf4c-fce6bd8f0bf3"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Cuarto Software]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="5efd601a-fedc-4e39-9dd6-fdadf6a6ab23"/>
+				<text><![CDATA[Cedula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="123" y="1" width="100" height="20" uuid="93cb74eb-1c0b-4ec6-9625-baea7cbbdc06"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="241" y="1" width="100" height="20" uuid="eee0812a-e113-4efd-9a45-e56914bfa79d"/>
+				<text><![CDATA[Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="356" y="2" width="100" height="20" uuid="020ae71b-a484-4ca7-b406-c94117719032"/>
+				<text><![CDATA[Direccion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="467" y="2" width="100" height="20" uuid="b19867e9-e0b3-4eb5-beae-3b4a7c8e3bf1"/>
+				<text><![CDATA[Telefono]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="ebca332d-6b1f-4b0e-b931-142fdb4a5969"/>
+				<textFieldExpression><![CDATA[$F{est_cedula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="123" y="0" width="100" height="20" uuid="f331991b-ddc4-40fd-8954-6c68679e1d5e"/>
+				<textFieldExpression><![CDATA[$F{est_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="241" y="0" width="100" height="20" uuid="bf1c88cb-2d16-4878-be30-8702faf38919"/>
+				<textFieldExpression><![CDATA[$F{est_apellido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="356" y="1" width="100" height="20" uuid="bd3a0d34-13f6-4e9b-95bd-b53a28d854b7"/>
+				<textFieldExpression><![CDATA[$F{est_direccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="467" y="1" width="100" height="20" uuid="41ef8e05-4c06-4ea6-ad30-447d7161bed8"/>
+				<textFieldExpression><![CDATA[$F{est_telefono}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50">
+			<staticText>
+				<reportElement x="1" y="30" width="100" height="20" uuid="6b291f4c-66f8-4bd8-b466-cf71bdaf44d0"/>
+				<text><![CDATA[Pagina: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="42" y="30" width="100" height="20" uuid="b9bdc9db-1815-476e-96e1-0261e464172c"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="189" splitType="Stretch">
+			<textField>
+				<reportElement x="326" y="11" width="100" height="20" uuid="d53f564d-20d6-492c-aa9b-df301ec17389"/>
+				<textFieldExpression><![CDATA[$V{est_cedula_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="218" y="11" width="123" height="20" uuid="ec260b53-3ca0-429c-8cd2-190bed108f20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad de alumnos:]]></text>
+			</staticText>
+			<stackedBar3DChart>
+				<chart>
+					<reportElement x="23" y="58" width="200" height="100" uuid="ed132fd7-10eb-4611-9aca-12ff7bb0300f"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Cuarto Software"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{est_cedula}]]></categoryExpression>
+						<valueExpression><![CDATA[$V{est_cedula_1}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</bar3DPlot>
+			</stackedBar3DChart>
+			<pieChart>
+				<chart>
+					<reportElement x="315" y="58" width="200" height="100" uuid="6f016a82-1622-4b9b-9ffa-8ccf21dbc517"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{est_nombre}]]></keyExpression>
+					<valueExpression><![CDATA[$V{est_cedula_1}]]></valueExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</summary>
+</jasperReport>
